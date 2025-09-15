@@ -91,6 +91,14 @@ def get_address(address_id: UUID):
         raise HTTPException(status_code=404, detail="Address not found")
     return addresses[address_id]
 
+@app.put("/addresses/{address_id}", response_model=AddressRead)
+def replace_address(address_id: UUID, address: AddressCreate):
+    if address_id not in addresses:
+        raise HTTPException(status_code=404, detail="Address not found")
+    # For PUT, we replace the entire resource
+    addresses[address_id] = AddressRead(**address.model_dump())
+    return addresses[address_id]
+
 @app.patch("/addresses/{address_id}", response_model=AddressRead)
 def update_address(address_id: UUID, update: AddressUpdate):
     if address_id not in addresses:
@@ -99,6 +107,13 @@ def update_address(address_id: UUID, update: AddressUpdate):
     stored.update(update.model_dump(exclude_unset=True))
     addresses[address_id] = AddressRead(**stored)
     return addresses[address_id]
+
+@app.delete("/addresses/{address_id}")
+def delete_address(address_id: UUID):
+    if address_id not in addresses:
+        raise HTTPException(status_code=404, detail="Address not found")
+    del addresses[address_id]
+    return {"message": "Address deleted successfully"}
 
 # -----------------------------------------------------------------------------
 # Person endpoints
@@ -150,6 +165,14 @@ def get_person(person_id: UUID):
         raise HTTPException(status_code=404, detail="Person not found")
     return persons[person_id]
 
+@app.put("/persons/{person_id}", response_model=PersonRead)
+def replace_person(person_id: UUID, person: PersonCreate):
+    if person_id not in persons:
+        raise HTTPException(status_code=404, detail="Person not found")
+    # For PUT, we replace the entire resource
+    persons[person_id] = PersonRead(**person.model_dump())
+    return persons[person_id]
+
 @app.patch("/persons/{person_id}", response_model=PersonRead)
 def update_person(person_id: UUID, update: PersonUpdate):
     if person_id not in persons:
@@ -158,6 +181,13 @@ def update_person(person_id: UUID, update: PersonUpdate):
     stored.update(update.model_dump(exclude_unset=True))
     persons[person_id] = PersonRead(**stored)
     return persons[person_id]
+
+@app.delete("/persons/{person_id}")
+def delete_person(person_id: UUID):
+    if person_id not in persons:
+        raise HTTPException(status_code=404, detail="Person not found")
+    del persons[person_id]
+    return {"message": "Person deleted successfully"}
 
 # -----------------------------------------------------------------------------
 # Root
