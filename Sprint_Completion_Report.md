@@ -252,8 +252,8 @@ The FastAPI application automatically generates OpenAPI documentation with:
 5. *Showing the OpenAPI JSON specification]*
 
 ### Link to GitHub Repository
-**GitHub Repository:** https://github.com/donald-f-ferguson/SimpleMicroservices.git
-**Note:** This is a fork/clone of Professor Ferguson's original repository with custom implementations.
+**GitHub Repository:** https://github.com/jessicasunxx/SimpleMicroservices.git
+**Note:** This is my personal implementation based on Professor Ferguson's original repository structure with custom models and complete CRUD operations.
 
 ## 3. Incomplete Work ❌
 
